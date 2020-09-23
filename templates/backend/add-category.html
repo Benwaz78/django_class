@@ -9,10 +9,7 @@ Add Categeroy
 <h2>Add Categeroy</h2>
 
 <form method="POST">
-
-            
-   
-    
+    {% include 'backend/form-snippet.html' with form=cat %}
     <input type="submit" value="Add Category" class="btn btn-warning">
 </form>
 {% endblock %}
