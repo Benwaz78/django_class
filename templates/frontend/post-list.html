@@ -1,0 +1,62 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %}
+Post List
+{% endblock %}
+
+{% block content %}
+ <section id="sectionTitle">
+        <div class="pageTitle">
+          <h1>5 Post From Sports Category</h1>
+        </div>
+      </section>
+      <!-- END OF PAGE TITLE -->
+      <section id="content">
+        <div class="row">
+          <div class="col-sm-9" id="mainContent">
+             {% if posts %}
+                {% for p in posts %}
+                    <div class="row">
+                      <div class="col-sm-9" id="mainContent">
+                        <div class="row">
+                          <div class="col-md-4 col-sm-4">
+                            <div class="thumbnail">
+                              <img src="{{ p.pst_img.url }}">
+                            </div>
+                          </div> 
+                          <div class="col-md-8 col-sm-8">
+                            <div class="blog-content">
+                               <p>
+                                Time:{{ p.created|date:'H:i a' }}, 
+                                Category:
+                                  {% for q in p.category.all  %}
+                                  <a href="{% url 'frontend:post_from_cat' q.id %}">{{ q.cat_name }}</a>,
+                                  {% endfor %}
+
+                                
+                                Posted By: <a href="#">{{ p.user.username }}</a>.
+                                
+                              </p>
+                              <h2>{{ p.pst_title }}</h2>
+                              <p>
+                               {{ p.pst_content|truncatewords:25 }}
+                              </p>
+                              <a href="{% url 'frontend:single_post' p.id %}" class="btn btn-success">Readmore</a>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- END OF BLOG ROW 1 -->
+                       
+                      </div>
+                      <!-- END OF ASIDE CONTENT -->
+                    </div>
+                {% endfor %}
+              {% endif %}
+          </div>
+          {% include 'frontend/sidebar.html' %}
+        </div>
+
+       
+        
+      </section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'backend/base.html' %}
+{% load static %}
+
+{% block title %}
+Add Categeroy
+{% endblock %}
+
+{% block content %}
+<h2>Add Categeroy</h2>
+
+{% if messages %}
+    {% for me in messages %}
+        <div class="alert alert-success">{{ me }}</div>
+    {% endfor %}
+{% endif %}
+<!-- 
+{% if cat.errors %}
+    {% for f in cat.errors %}
+        <div class="alert alert-danger">{{ f }}</div>
+    {% endfor %}
+{% endif %} -->
+{{ cat.non_field_errors }}
+<form method="POST">
+    <div class="form-group">
+        {% if cat.cat_name.errors %}
+            {% for c in cat.cat_name.errors %}
+                <p class="text-danger">{{ c }}</p>
+            {% endfor %}
+        {% endif %}
+        
+        <label for="{{ cat.cat_name.id_for_label }}">Category Name</label>
+        {{ cat.cat_name }}
+    </div>
+    <div class="form-group">
+        <p class="text-danger">{{ cat.cat_desc.errors }}</p>
+        <label>Category Description</label>
+        {{ cat.cat_desc }}
+    </div>
+            
+   
+    {% csrf_token %}
+    <input type="submit" value="Add Category" class="btn btn-warning">
+</form>
+{% endblock %}

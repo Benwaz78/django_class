@@ -1,0 +1,38 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %}
+Service 
+{% endblock %}
+
+{% block content %}
+<section id="sectionTitle">
+  <div class="pageTitle">
+    <h1>Services</h1>
+  </div>
+</section>
+<!-- END OF PAGE TITLE -->
+<section id="content">
+  <div class="row">
+    <div class="col-sm-9 text-center" id="mainContent">
+      <div class="row">
+        {% if sv %}
+          {% for sr in sv %}
+            <div class="col-sm-4">
+              <span class="fa fa-android"></span>
+              <h1>{{ sr.srv_title }}</h1>
+              <p>
+                {{ sr.srv_content| truncatewords:30 }}
+              </p>
+              <a href="#" class="btn btn-primary">Readmore</a>
+            </div>
+          {% endfor %}
+
+        {% endif %}
+       
+        
+      </div>
+    </div>
+    {% include 'frontend/sidebar.html' %}
+  </div>
+</section>
+{% endblock %}

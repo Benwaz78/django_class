@@ -1,0 +1,45 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %}
+Single Blog
+{% endblock %}
+
+{% block content %}
+<section id="sectionTitle">
+  <div class="pageTitle">
+    <h1>Single Blog</h1>
+  </div>
+</section>
+<!-- END OF PAGE TITLE -->
+<section id="content">
+  <div class="row">
+    {% if single_post %}
+    <div class="col-sm-9 text-center" id="detailContent">
+      <div class="contain-img">
+        <div class="img-div">
+          <img src="{{ single_post.pst_img.url }}" class="img-responsive">
+        </div>
+        <p>
+          Time:{{ single_post.created|date:'H:i a' }}, 
+          Category:
+          {% for s in single_post.category.all %}
+            <a href="{% url 'frontend:post_from_cat' s.id %}">{{ s.cat_name }}.</a>.
+          {% endfor %}
+         
+    
+        </p>
+      </div>
+      <div class="detail-content">
+        <h2>{{ single_post.pst_title }}</h2>
+        <p>
+        {{ single_post.pst_content }}
+        </p>
+      </div>
+    
+    </div>
+    {% endif %}
+   
+    {% include 'frontend/sidebar.html' %}
+  </div>
+</section>
+{% endblock %}
