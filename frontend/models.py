@@ -25,7 +25,7 @@ class Post(models.Model):
     pst_img = models.FileField(blank=True, null = True, upload_to='upload/')
     category = models.ManyToManyField(Category)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    featured = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
