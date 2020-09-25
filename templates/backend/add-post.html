@@ -1,0 +1,15 @@
+{% extends 'backend/base.html' %}
+{% load static %}
+
+{% block title %}
+Add Post
+{% endblock %}
+
+{% block content %}
+<h2>Add Categeroy</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% include 'backend/form-snippet.html' with form=post %}
+    <input type="submit" value="Add Post" class="btn btn-warning">
+</form>
+{% endblock %}

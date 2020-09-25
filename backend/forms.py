@@ -1,6 +1,12 @@
 from django import forms
-from frontend.models import Category
+from frontend.models import Category, Post
 from django.core import validators
+from django.contrib.auth.models import User
+from backend.options import REFERER_FIELD, GENDER_FIELD, CHOOSE
+from backend.functions import check_for_c
+from frontend.models import ContactModel
+
+
 
 
 class CategoryForm(forms.ModelForm):
@@ -64,3 +70,24 @@ class ContactForm(forms.ModelForm):
 		model = ContactModel
 		fields = ('name', 'subject', 'email', 'verify_email',
 		          'gender', 'referer', 'message')
+
+class PostForm(forms.ModelForm):
+    pst_title = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Post Title'})
+    )
+    pst_content = forms.CharField(
+        widget=forms.Textarea(attrs={'class':'form-control'})
+    )
+    pst_img = forms.ImageField()
+    category = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(), 
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(), empty_label='Please Choose', 
+        widget=forms.Select(attrs={'class': 'form-control'}))
+    featured = forms.BooleanField(required=False)
+
+    class Meta():
+        exclude = ['created', ]
+        model = Post
+
