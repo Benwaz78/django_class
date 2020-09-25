@@ -61,7 +61,7 @@
               {% url 'frontend:all_post' as al  %}
               {% url 'backend:login_view' as log  %}
               {% url 'backend:register' as register  %}
-              {% url 'frontend:contact' as contact  %}
+              {% url 'backend:contact_form' as contact  %}
               {% url 'frontend:users' as usr  %}
 
               <ul class="nav navbar-nav">
@@ -77,7 +77,7 @@
                 <li  {% if request.path == srv %} class="active" {% endif %}><a href="{% url 'frontend:service' %}">Services</a></li>
                 <li {% if request.path == log %} class="active" {% endif %}><a href="{% url 'backend:login_view' %}">Login</a></li>
                 <li {% if request.path == register %} class="active" {% endif %}><a href="{% url 'backend:register' %}">Register</a></li>
-                <li {% if request.path == contact %} class="active" {% endif %}><a href="{% url 'frontend:contact' %}">Contact</a>
+                <li {% if request.path == contact %} class="active" {% endif %}><a href="{% url 'backend:contact_form' %}">Contact</a>
                                 </li>
               </ul>
             </div>

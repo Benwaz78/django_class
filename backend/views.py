@@ -5,7 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from frontend.models import Post, Category
 
-from backend.forms import CategoryForm, PostForm
+from backend.forms import CategoryForm, PostForm, ContactForm
+
+from django.conf import settings
+
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 
@@ -59,6 +65,27 @@ def post_form(request):
     else:
         post_form = PostForm()
     return render(request, 'backend/add-post.html', {'post': post_form})
+
+
+def contact_form(request):
+    if request.method == 'POST':
+        contform = ContactForm(request.POST)
+        if contform.is_valid():
+            contform.save()
+            subject = contform.cleaned_data.get('subject')
+            name = contform.cleaned_data.get('name')
+            email = contform.cleaned_data.get('email')
+            gender = contform.cleaned_data.get('gender')
+            referer = contform.cleaned_data.get('referer')
+            my_dict = {'name':name, 'email':email, 'gender':gender, 'referer':referer}
+            html_message = render_to_string('frontend/mail-template.html', my_dict)
+            plain_message = strip_tags(html_message)
+            from_email = settings.EMAIL_HOST_USER
+            mail.send_mail(subject, plain_message, from_email, ['uwazie.benedict@alabiansolutions.com',], html_message=html_message)
+            messages.success(request, 'Form is saved')
+    else:
+        contform = ContactForm()
+    return render(request, 'frontend/contact.html', {'con': contform})
 
 
 @login_required(login_url='/dashboard/')

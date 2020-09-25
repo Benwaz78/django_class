@@ -46,6 +46,7 @@ class Service(models.Model):
 
 
 class ContactModel(models.Model):
+    
 	name = models.CharField(max_length=120)
 	subject = models.CharField(max_length=120)
 	email = models.EmailField()

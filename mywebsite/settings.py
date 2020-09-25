@@ -22,6 +22,15 @@ MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [STATIC_DIR, ]
 
+from mywebsite import secret
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'nonwaz78@gmail.com'
+EMAIL_HOST_PASSWORD = secret.password
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
